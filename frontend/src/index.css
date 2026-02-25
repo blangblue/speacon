@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand Colors - SpeaCon */
+  --color-primary: #6200EA;        /* Electric Violet */
+  --color-primary-light: #8338EC;
+  --color-primary-dark: #3F0071;
+  --color-secondary: #00E676;      /* Energy Mint */
+  --color-secondary-light: #69F0AE;
+  --color-secondary-dark: #00B248;
+
+  /* Neutral Colors */
+  --color-bg: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-text-main: #212529;      /* Charcoal Gray */
+  --color-text-muted: #6C757D;
+  --color-text-light: #ADB5BD;
+  --color-border: #E9ECEF;
+  --color-border-hover: #DEE2E6;
+
+  /* Premium 'Yeondan' Theme (future use) */
+  --color-premium-bg: #121212;
+  --color-premium-surface: #1E1E1E;
+  --color-premium-primary: #D4AF37; /* Champagne Gold */
+
+  /* UI Tokens */
+  --font-family-main: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-pill: 999px;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-primary: 0 8px 16px rgba(98, 0, 234, 0.2);
+
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --max-width-content: 1200px;
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-family-main);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background: none;
+  transition: all var(--transition-normal);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-main);
+}
+
+/* Global Utility Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.container {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-light);
+}
