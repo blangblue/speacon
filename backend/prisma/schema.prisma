@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CLIENT
+  SPEAKER
+  ADMIN
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum PortfolioType {
+  VIDEO
+  PDF
+  LINK
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  role          Role      @default(CLIENT)
+  name          String?
+  companyName   String?
+  phone         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  speaker       Speaker?
+  requests      Request[] @relation("ClientRequests")
+}
+
+model Speaker {
+  id              String         @id @default(uuid())
+  userId          String         @unique
+  user            User           @relation(fields: [userId], references: [id])
+  profileImageUrl String?
+  roleTitle       String?
+  headline        String?
+  description     String?
+  priceRange      String?
+  isPremium       Boolean        @default(false)
+  totalLectures   Int            @default(0)
+
+  tags            SpeakerTag[]
+  portfolios      Portfolio[]
+  requests        Request[]      @relation("TargetSpeakerRequests")
+}
+
+model Tag {
+  id       Int          @id @default(autoincrement())
+  name     String       @unique
+  speakers SpeakerTag[]
+}
+
+model SpeakerTag {
+  speakerId String
+  tagId     Int
+  speaker   Speaker @relation(fields: [speakerId], references: [id])
+  tag       Tag     @relation(fields: [tagId], references: [id])
+
+  @@id([speakerId, tagId])
+}
+
+model Portfolio {
+  id        Int           @id @default(autoincrement())
+  speakerId String
+  speaker   Speaker       @relation(fields: [speakerId], references: [id])
+  type      PortfolioType
+  title     String
+  mediaUrl  String?
+  year      String?
+}
+
+model Request {
+  id                String        @id @default(uuid())
+  clientId          String
+  client            User          @relation("ClientRequests", fields: [clientId], references: [id])
+  targetSpeakerId   String?
+  targetSpeaker     Speaker?      @relation("TargetSpeakerRequests", fields: [targetSpeakerId], references: [id])
+  eventDate         DateTime?
+  eventLocation     String?
+  audienceSizeRange String?
+  budgetRange       String?
+  memoContent       String?
+  status            RequestStatus @default(PENDING)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+}
