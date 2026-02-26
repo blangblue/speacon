@@ -6,7 +6,7 @@
 }
 
 .profile-header {
-    background: linear-gradient(to bottom, #f3f0f7, #ffffff);
+    background: linear-gradient(to bottom, #F8FAFC, #FFFFFF);
     padding: 60px 0;
     border-bottom: 1px solid var(--color-border);
 }
@@ -33,14 +33,15 @@
 
 .badge-premium {
     display: inline-block;
-    padding: 4px 10px;
-    background: #fff9e6;
-    color: #D4AF37;
-    border: 1px solid #D4AF37;
-    border-radius: 4px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #FFF9E6, #FFF4CC);
+    color: var(--color-premium-primary);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--border-radius-pill);
     font-size: 13px;
     font-weight: 700;
     margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.1);
 }
 
 .profile-name {
@@ -88,11 +89,13 @@
 
 .profile-actions {
     width: 320px;
-    padding: 24px;
+    padding: 32px 24px;
     border-radius: var(--border-radius-lg);
     text-align: center;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
     flex-shrink: 0;
+    background: white;
+    border: 1px solid transparent;
 }
 
 .price-info {

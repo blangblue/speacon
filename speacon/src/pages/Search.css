@@ -28,7 +28,10 @@
     width: 280px;
     flex-shrink: 0;
     padding: 24px;
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
+    background: white;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
     align-self: flex-start;
     position: sticky;
     top: 100px;

@@ -8,14 +8,13 @@
 }
 
 .onboarding-container {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-lg);
     padding: 3rem;
     width: 100%;
     max-width: 600px;
-    /* 로그인창보다 살짝 더 넓게 */
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
 }
 
 .onboarding-container h2 {
@@ -45,13 +44,13 @@
 .onboarding-form select,
 .onboarding-form textarea {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background-color: var(--background);
+    padding: 14px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--color-bg);
     color: var(--text-primary);
     font-size: 1rem;
-    transition: all 0.2s ease;
+    transition: all var(--transition-normal);
     font-family: inherit;
 }
 
