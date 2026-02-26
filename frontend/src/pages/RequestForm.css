@@ -1,0 +1,130 @@
+/* Request Form Styles */
+
+.request-page {
+    padding: 60px 0;
+    background-color: var(--color-bg);
+    min-height: 100vh;
+}
+
+.request-container {
+    max-width: 800px;
+}
+
+.request-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.request-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
+
+.request-header p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+.request-form {
+    padding: 40px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    background: white;
+    border: 1px solid var(--color-border);
+}
+
+.form-section {
+    margin-bottom: 40px;
+}
+
+.form-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+    color: var(--color-primary);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.form-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--color-text-main);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    font-size: 15px;
+    transition: all var(--transition-fast);
+    background-color: var(--color-bg);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1);
+    background-color: white;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 24px;
+}
+
+.btn-large {
+    padding: 14px 32px;
+    font-size: 16px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .request-page {
+        padding: 40px 16px;
+    }
+
+    .request-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .request-form {
+        padding: 24px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .btn-large,
+    .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+}
