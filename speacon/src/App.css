@@ -65,6 +65,12 @@ header.app-header.scrolled {
   color: var(--color-secondary-dark);
 }
 
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
 .nav-links {
   display: flex;
   gap: 32px;
@@ -99,6 +105,20 @@ header.app-header.scrolled {
 .auth-buttons {
   display: flex;
   gap: 12px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-main);
+  padding: 4px;
+  z-index: 101;
+}
+
+.mobile-menu-dropdown {
+  display: none;
 }
 
 .btn {
@@ -137,27 +157,80 @@ header.app-header.scrolled {
 @media (max-width: 768px) {
   .header-container {
     padding: 0 16px;
+    background: transparent;
   }
 
-  .nav-links {
-    gap: 16px;
+  .desktop-menu {
+    display: none;
   }
 
-  .nav-link {
-    font-size: 14px;
+  .mobile-menu-btn {
+    display: block;
   }
 
-  .auth-buttons {
+  .mobile-menu-dropdown {
     display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    /* Mobile header height */
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.25s ease-in-out;
+    z-index: 99;
   }
 
-  .btn {
-    padding: 8px 14px;
-    font-size: 13px;
+  .mobile-menu-dropdown.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 24px 16px;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-nav-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-main);
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: color 0.2s ease;
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  .mobile-auth-buttons {
+    display: flex;
+    width: 100%;
+  }
+
+  .btn-block {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 15px;
   }
 
   .logo {
     font-size: 20px;
+    z-index: 101;
   }
 
   header.app-header {
