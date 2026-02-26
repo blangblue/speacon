@@ -148,7 +148,12 @@ header.app-header.scrolled {
   }
 
   .auth-buttons {
-    display: none;
+    display: flex;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 13px;
   }
 
   .logo {

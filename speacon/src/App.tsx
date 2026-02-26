@@ -34,8 +34,7 @@ function App() {
               <Link to="/reviews" className="nav-link">이용 후기</Link>
             </nav>
             <div className="auth-buttons">
-              <Link to="/login" className="btn btn-outline" style={{ textDecoration: 'none' }}>로그인</Link>
-              <Link to="/signup" className="btn btn-primary" style={{ textDecoration: 'none' }}>회원가입</Link>
+              <Link to="/login" className="btn btn-primary" style={{ textDecoration: 'none' }}>로그인</Link>
             </div>
           </div>
         </header>
