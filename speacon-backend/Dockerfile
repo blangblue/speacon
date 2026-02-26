@@ -40,4 +40,4 @@ EXPOSE 8080
 
 # Prisma push / migrations can be handled via init scripts or externally for production.
 # Start the server using the production build. Run DB push before starting.
-CMD npx prisma db push --accept-data-loss && npm run start:prod
+CMD ["npm", "run", "start:prod"]
