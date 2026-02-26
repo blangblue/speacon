@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import type { Role } from '../context/AuthContext';
 import './Login.css';
 
 function Login() {
@@ -10,18 +9,17 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleRoleLogin = (role: Role) => {
-        login(role);
-        // 로그인 권한 획득 시 각자의 대시보드로 이동
-        if (role === 'ADMIN') navigate('/dashboard/admin');
-        else if (role === 'SPEAKER') navigate('/dashboard/speaker');
-        else if (role === 'CLIENT') navigate('/dashboard/client');
+    const handleQuickLogin = async (targetEmail: string) => {
+        const success = await login(targetEmail, '1234');
+        if (success) navigate('/'); // 로그인 훅 내에서 상태가 세팅되면 AppRouter가 dashboard로 분기해줌 (또는 여기서 role기반 강제이동 시킬수도 있음)
     };
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // 일반 폼 로그인 시 기본적으로 기업(Client) 유저라고 가정
-        handleRoleLogin('CLIENT');
+        const success = await login(email, password);
+        if (success) {
+            navigate('/');
+        }
     };
 
     return (
@@ -30,7 +28,7 @@ function Login() {
                 <h2>로그인</h2>
                 <p className="auth-subtitle">스피콘에 오신 것을 환영합니다.</p>
 
-                {/* MVP 더미 테스트용 퀵 로그인 패널 */}
+                {/* DB 연동 빠른 로그인 (테스트용) */}
                 <div style={{
                     margin: '1rem 0 2rem',
                     padding: '1rem',
@@ -38,23 +36,23 @@ function Login() {
                     borderRadius: '8px',
                     border: '1px dashed var(--color-border)'
                 }}>
-                    <p style={{ fontSize: '0.9rem', marginBottom: '0.8rem', textAlign: 'center' }}>🧪 테스트용 빠른 권한 로그인</p>
+                    <p style={{ fontSize: '0.9rem', marginBottom: '0.8rem', textAlign: 'center' }}>🧪 테스트용 통합 계정 로그인</p>
                     <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleRoleLogin('SPEAKER')}>강사로 로그인</button>
-                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleRoleLogin('CLIENT')}>기업으로 로그인</button>
-                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleRoleLogin('ADMIN')}>어드민 로그인</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('tutor')}>강사계정 (tutor)</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('company')}>기업계정 (company)</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('admin')}>운영자 (admin)</button>
                     </div>
                 </div>
 
                 <form onSubmit={handleLogin} className="auth-form">
                     <div className="form-group">
-                        <label htmlFor="email">이메일</label>
+                        <label htmlFor="email">이메일(아이디)</label>
                         <input
-                            type="email"
+                            type="text"
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="speacon@example.com"
+                            placeholder="아이디를 입력하세요"
                             required
                         />
                     </div>
@@ -65,7 +63,7 @@ function Login() {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="비밀번호를 입력하세요"
+                            placeholder="비밀번호 1234"
                             required
                         />
                     </div>
