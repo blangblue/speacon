@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mockRequests } from '../data/mockData';
 import './SpeakerDashboard.css';
 
 const SpeakerDashboard: React.FC = () => {
+    const navigate = useNavigate();
     // 강사 본인의 ID가 'spk_001'이라고 가정한 더미 로그인 상태
     const currentSpeakerId = "spk_001";
 
@@ -36,7 +38,7 @@ const SpeakerDashboard: React.FC = () => {
                     <div className="dashboard-card glass-panel profile-section">
                         <h3>내 프로필 관리</h3>
                         <p>전문 분야, 포트폴리오, 예상 강연료 등을 상시 업데이트하세요.</p>
-                        <button className="btn btn-primary" style={{ marginTop: 'auto' }}>프로필 수정하기</button>
+                        <button className="btn btn-primary" style={{ marginTop: 'auto' }} onClick={() => navigate('/speaker/edit')}>프로필 수정하기</button>
                     </div>
 
                     {/* 요청 확인 섹션 */}

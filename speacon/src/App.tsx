@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import SpeakerOnboarding from './pages/SpeakerOnboarding';
 import AdminDashboard from './pages/AdminDashboard';
 import SpeakerDashboard from './pages/SpeakerDashboard';
+import SpeakerProfileEdit from './pages/SpeakerProfileEdit';
 import ClientDashboard from './pages/ClientDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
@@ -123,6 +124,9 @@ function AppContent() {
           } />
           <Route path="/dashboard/speaker" element={
             <ProtectedRoute allowedRoles={['SPEAKER']}><SpeakerDashboard /></ProtectedRoute>
+          } />
+          <Route path="/speaker/edit" element={
+            <ProtectedRoute allowedRoles={['SPEAKER']}><SpeakerProfileEdit /></ProtectedRoute>
           } />
           <Route path="/dashboard/client" element={
             <ProtectedRoute allowedRoles={['CLIENT']}><ClientDashboard /></ProtectedRoute>

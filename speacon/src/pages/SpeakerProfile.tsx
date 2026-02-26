@@ -6,6 +6,7 @@ import './SpeakerProfile.css';
 const SpeakerProfile: React.FC = () => {
     const { id } = useParams();
     const [speaker, setSpeaker] = useState<Speaker | null>(null);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -13,6 +14,15 @@ const SpeakerProfile: React.FC = () => {
             setSpeaker(data || null);
         }
     }, [id]);
+
+    const handleToggleFavorite = () => {
+        setIsFavorite(!isFavorite);
+        if (!isFavorite) {
+            alert('관심 강사로 찜했습니다.');
+        } else {
+            alert('찜하기를 취소했습니다.');
+        }
+    };
 
     if (!speaker) {
         return (
@@ -54,7 +64,9 @@ const SpeakerProfile: React.FC = () => {
                     <div className="profile-actions glass-panel">
                         <p className="price-info">예상 섭외비 <strong>{speaker.priceLabel}</strong></p>
                         <Link to={`/request?speakerId=${speaker.id}`} className="btn btn-primary btn-block">강연 의뢰하기</Link>
-                        <button className="btn btn-outline btn-block mt-2">🤍 찜하기</button>
+                        <button className="btn btn-outline btn-block mt-2" onClick={handleToggleFavorite}>
+                            {isFavorite ? '❤️ 찜 해제' : '🤍 찜하기'}
+                        </button>
                     </div>
                 </div>
             </div>

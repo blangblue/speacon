@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { mockRequests, getSpeakerById } from '../data/mockData';
+import { mockRequests, mockReviews, getSpeakerById } from '../data/mockData';
+import ReviewWriteModal from '../components/ReviewWriteModal';
 import './ClientDashboard.css';
 
 const ClientDashboard: React.FC = () => {
@@ -9,6 +10,13 @@ const ClientDashboard: React.FC = () => {
     const [requests, setRequests] = useState(
         mockRequests.filter(req => req.clientId === currentClientId)
     );
+
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [selectedSpeakerForReview, setSelectedSpeakerForReview] = useState<{ id: string, name: string } | null>(null);
+    const [selectedRequestIdForReview, setSelectedRequestIdForReview] = useState<string | null>(null);
+
+    // 내부에서 리뷰 작성/수정을 임시 추적하는 State
+    const [reviews, setReviews] = useState(mockReviews.filter(rev => rev.clientId === currentClientId));
 
     const handleCancel = (id: string) => {
         if (window.confirm('정말 강연 요청을 취소하시겠습니까?')) {
@@ -25,6 +33,49 @@ const ClientDashboard: React.FC = () => {
             case 'COMPLETED': return <span className="status-badge completed" style={{ color: 'blue' }}>완료됨</span>;
             default: return null;
         }
+    };
+
+    const handleOpenReviewModal = (requestId: string, speakerId: string, speakerName: string) => {
+        setSelectedRequestIdForReview(requestId);
+        setSelectedSpeakerForReview({ id: speakerId, name: speakerName });
+        setIsReviewModalOpen(true);
+    };
+
+    const handleCloseReviewModal = () => {
+        setIsReviewModalOpen(false);
+        setSelectedSpeakerForReview(null);
+        setSelectedRequestIdForReview(null);
+    };
+
+    const handleReviewSubmit = (rating: number, content: string) => {
+        if (!selectedRequestIdForReview || !selectedSpeakerForReview) return;
+
+        console.log(`Review submitted for request ${selectedRequestIdForReview}:`, { rating, content });
+
+        const existingReviewIndex = reviews.findIndex(r => r.requestId === selectedRequestIdForReview);
+        if (existingReviewIndex >= 0) {
+            // 수정
+            const updated = [...reviews];
+            updated[existingReviewIndex] = { ...updated[existingReviewIndex], rating, content };
+            setReviews(updated);
+            alert('리뷰가 성공적으로 수정되었습니다.');
+        } else {
+            // 신규 작성
+            const newReview = {
+                id: `rev_temp_${Date.now()}`,
+                requestId: selectedRequestIdForReview,
+                clientId: currentClientId,
+                clientName: '스마일기업(주)',
+                speakerId: selectedSpeakerForReview.id,
+                rating,
+                content,
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+            setReviews([...reviews, newReview]);
+            alert('리뷰가 성공적으로 등록되었습니다.');
+        }
+
+        handleCloseReviewModal();
     };
 
     return (
@@ -55,11 +106,19 @@ const ClientDashboard: React.FC = () => {
                                                         <button className="btn btn-outline btn-sm" onClick={() => handleCancel(req.id)}>요청 취소</button>
                                                     </div>
                                                 )}
-                                                {req.status === 'COMPLETED' && (
-                                                    <div className="action-buttons">
-                                                        <button className="btn btn-primary btn-sm">리뷰 작성하기</button>
-                                                    </div>
-                                                )}
+                                                {req.status === 'COMPLETED' && (() => {
+                                                    const existingReview = reviews.find(r => r.requestId === req.id);
+                                                    return (
+                                                        <div className="action-buttons">
+                                                            <button
+                                                                className={`btn ${existingReview ? 'btn-outline' : 'btn-primary'} btn-sm`}
+                                                                onClick={() => handleOpenReviewModal(req.id, req.targetSpeakerId, speaker?.name || '강사')}
+                                                            >
+                                                                {existingReview ? '리뷰 수정하기' : '리뷰 작성하기'}
+                                                            </button>
+                                                        </div>
+                                                    );
+                                                })()}
                                             </div>
                                         </div>
                                     )
@@ -71,6 +130,20 @@ const ClientDashboard: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {isReviewModalOpen && selectedSpeakerForReview && selectedRequestIdForReview && (() => {
+                const existingReview = reviews.find(r => r.requestId === selectedRequestIdForReview);
+                return (
+                    <ReviewWriteModal
+                        isOpen={isReviewModalOpen}
+                        onClose={handleCloseReviewModal}
+                        onSubmit={handleReviewSubmit}
+                        speakerName={selectedSpeakerForReview.name}
+                        initialRating={existingReview?.rating}
+                        initialContent={existingReview?.content}
+                    />
+                );
+            })()}
         </div>
     );
 };
