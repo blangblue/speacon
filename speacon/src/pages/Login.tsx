@@ -1,18 +1,27 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import type { Role } from '../context/AuthContext';
 import './Login.css';
 
 function Login() {
+    const { login } = useAuth();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+
+    const handleRoleLogin = (role: Role) => {
+        login(role);
+        // 로그인 권한 획득 시 각자의 대시보드로 이동
+        if (role === 'ADMIN') navigate('/dashboard/admin');
+        else if (role === 'SPEAKER') navigate('/dashboard/speaker');
+        else if (role === 'CLIENT') navigate('/dashboard/client');
+    };
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: 백엔드 API 연동
-        console.log('Login attempt:', { email, password });
-        alert('로그인 시도 (백엔드 연동 전)');
-        navigate('/');
+        // 일반 폼 로그인 시 기본적으로 기업(Client) 유저라고 가정
+        handleRoleLogin('CLIENT');
     };
 
     return (
@@ -20,6 +29,22 @@ function Login() {
             <div className="auth-container">
                 <h2>로그인</h2>
                 <p className="auth-subtitle">스피콘에 오신 것을 환영합니다.</p>
+
+                {/* MVP 더미 테스트용 퀵 로그인 패널 */}
+                <div style={{
+                    margin: '1rem 0 2rem',
+                    padding: '1rem',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    borderRadius: '8px',
+                    border: '1px dashed var(--color-border)'
+                }}>
+                    <p style={{ fontSize: '0.9rem', marginBottom: '0.8rem', textAlign: 'center' }}>🧪 테스트용 빠른 권한 로그인</p>
+                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleRoleLogin('SPEAKER')}>강사로 로그인</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleRoleLogin('CLIENT')}>기업으로 로그인</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleRoleLogin('ADMIN')}>어드민 로그인</button>
+                    </div>
+                </div>
 
                 <form onSubmit={handleLogin} className="auth-form">
                     <div className="form-group">

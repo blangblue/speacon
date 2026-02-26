@@ -125,3 +125,76 @@ export const getSpeakersByCategory = (category: string) =>
 
 export const getSpeakerById = (id: string) =>
     mockSpeakers.find(s => s.id === id);
+
+// Dashboard Mock Data
+export interface RequestData {
+    id: string;
+    clientId: string;
+    clientName: string;
+    targetSpeakerId: string;
+    eventDate: string;
+    eventLocation: string;
+    budgetRange: string;
+    status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'COMPLETED';
+    createdAt: string;
+}
+
+export interface ReviewData {
+    id: string;
+    requestId: string;
+    clientId: string;
+    clientName: string;
+    speakerId: string;
+    rating: number;
+    content: string;
+    createdAt: string;
+}
+
+export const mockRequests: RequestData[] = [
+    {
+        id: "req_001",
+        clientId: "client_999",
+        clientName: "스마일기업(주)",
+        targetSpeakerId: "spk_001",
+        eventDate: "2026-04-15",
+        eventLocation: "서울 코엑스",
+        budgetRange: "300만원 ~ 500만원",
+        status: "PENDING",
+        createdAt: "2026-02-20"
+    },
+    {
+        id: "req_002",
+        clientId: "client_888",
+        clientName: "(주)알파테크",
+        targetSpeakerId: "spk_001",
+        eventDate: "2026-03-10",
+        eventLocation: "온라인 줌(Zoom)",
+        budgetRange: "100만원 ~ 200만원",
+        status: "ACCEPTED",
+        createdAt: "2026-02-15"
+    },
+    {
+        id: "req_003",
+        clientId: "client_999",
+        clientName: "스마일기업(주)",
+        targetSpeakerId: "spk_003",
+        eventDate: "2026-05-20",
+        eventLocation: "판교 사옥",
+        budgetRange: "200만원 ~ 300만원",
+        status: "COMPLETED",
+        createdAt: "2026-01-10"
+    }
+];
+
+export const mockReviews: ReviewData[] = [
+    {
+        id: "rev_001",
+        requestId: "req_003",
+        clientId: "client_999",
+        clientName: "스마일기업(주)",
+        speakerId: "spk_003",
+        rating: 5,
+        content: "조직 문화 개선에 대한 아주 현실적이고 명쾌한 솔루션을 제시해주셨습니다. 강력 추천합니다.",
+        createdAt: "2026-05-22"
+    }
+];

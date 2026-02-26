@@ -1,0 +1,65 @@
+/* 대시보드 공통 스타일 모음 */
+.dashboard-container {
+    padding: 120px 0 80px;
+    background-color: var(--color-bg);
+    min-height: 100vh;
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-light);
+    margin-bottom: 3rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.dashboard-card {
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+}
+
+.dashboard-card p {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    /* 밑 버튼을 하단 정렬하기 위한 트릭 */
+}
+
+.stats-indicator {
+    margin-bottom: 1rem;
+}
+
+.badge-accent {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
