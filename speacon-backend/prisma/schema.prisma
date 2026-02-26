@@ -13,6 +13,12 @@ enum Role {
   ADMIN
 }
 
+enum Grade {
+  NORMAL
+  PREMIUM
+  MASTER
+}
+
 enum RequestStatus {
   PENDING
   ACCEPTED
@@ -46,6 +52,7 @@ model User {
 
   speaker       Speaker?
   requests      Request[] @relation("ClientRequests")
+  reviews       Review[]
 }
 
 model Speaker {
@@ -58,11 +65,13 @@ model Speaker {
   description     String?
   priceRange      String?
   isPremium       Boolean        @default(false)
+  grade           Grade          @default(NORMAL)
   totalLectures   Int            @default(0)
 
   tags            SpeakerTag[]
   portfolios      Portfolio[]
   requests        Request[]      @relation("TargetSpeakerRequests")
+  reviews         Review[]
 }
 
 model Tag {
@@ -106,4 +115,19 @@ model Request {
   status            RequestStatus @default(PENDING)
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+  review            Review?
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  clientId  String
+  client    User     @relation(fields: [clientId], references: [id])
+  speakerId String
+  speaker   Speaker  @relation(fields: [speakerId], references: [id])
+  requestId String   @unique
+  request   Request  @relation(fields: [requestId], references: [id])
+  rating    Int
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
