@@ -38,9 +38,9 @@ function Login() {
                 }}>
                     <p style={{ fontSize: '0.9rem', marginBottom: '0.8rem', textAlign: 'center' }}>🧪 테스트용 통합 계정 로그인</p>
                     <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('tutor')}>강사계정 (tutor)</button>
-                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('company')}>기업계정 (company)</button>
-                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('admin')}>운영자 (admin)</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('tutor@speacon.com')}>강사계정 (tutor)</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('company@speacon.com')}>기업계정 (company)</button>
+                        <button type="button" className="btn btn-outline btn-sm" onClick={() => handleQuickLogin('admin@speacon.com')}>운영자 (admin)</button>
                     </div>
                 </div>
 
